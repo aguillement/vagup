@@ -22,6 +22,8 @@ yum install -y \
         policycoreutils-python \
         redis
 
+#TODO install python 3
+
 # init postgresql database
 /usr/pgsql-10/bin/postgresql-10-setup initdb
 sudo systemctl enable postgresql-10
