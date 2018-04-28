@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "bento/centos-7.3"
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+
+  config.vm.synced_folder "..", "/srv/vagup"
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "vagup"
+  end
+
+  config.vm.provision "provision-yum", type: "shell" do |s|
+    s.privileged = true
+    s.path = "provision-yum.sh"
+  end
+
+  config.vm.provision "provision-python", type: "shell" do |s|
+    s.privileged = false
+    s.path = "provision-python.sh"
+  end
+end
