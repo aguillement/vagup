@@ -1,10 +1,10 @@
-python3.6 -m venv venv-vagup \
-&& source ~/venv-vagup/bin/activate \
-&& cd /srv/vagup/
+python3.6 -m venv venv-vagup
+source ~/venv-vagup/bin/activate
+cd /srv/vagup
 
 # requirements
-source ~/venv/vagup/bin/activate \
-&& cd /srv/vagup \
+source ~/venv-vagup/bin/activate \
+&& cd /srv/vagup/src/vagup \
 && pip3.6 install -r requirements.txt \
 && python manage.py makemigrations \
 && python manage.py migrate \

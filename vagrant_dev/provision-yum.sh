@@ -6,8 +6,14 @@ yum update -y
 # Install EPEL
 yum install epel-release -y
 
-# Install python3.6
+
+# dépôt pour installer python 3.6 + installation
 yum install -y https://centos7.iuscommunity.org/ius-release.rpm
+yum install -y \
+    python36u \
+    python36u-pip \
+    python36u-devel
+
 yum install -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
 yum install -y \
         postgresql10 \
@@ -22,7 +28,6 @@ yum install -y \
         policycoreutils-python \
         redis
 
-#TODO install python 3
 
 # init postgresql database
 /usr/pgsql-10/bin/postgresql-10-setup initdb

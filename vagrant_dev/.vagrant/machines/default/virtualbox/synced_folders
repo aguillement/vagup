@@ -1,0 +1,1 @@
+{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/xampp/htdocs/vagup/vagrant_dev","disabled":false,"__vagrantfile":true},"/srv/vagup":{"guestpath":"/srv/vagup","hostpath":"C:/xampp/htdocs/vagup","disabled":false,"__vagrantfile":true}}}
