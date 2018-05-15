@@ -17,13 +17,14 @@ def generator(request):
 
         if form.is_valid():
             data = form.cleaned_data
-
             response = HttpResponse(content_type='text')
             response['Content-Disposition'] = 'attachment; filename="Vagrantfile"'
 
-            response.write("First row" + "\n")
-            response.write("Second row")
+            response.write('# -*- mode: ruby -*- \n')
+            response.write('# vi: set ft=ruby : \n\n')
+            response.write('Vagrant.configure("2") do |config| \n\n\t')
 
+            response.write('config.vm.box = "{}"'.format(data['base_box']))
             return response
     else:
         form = VagrantForm()
