@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Generator{% endblock %}
 {% block content %}
-<h2>Bienvenue !</h2>
+{% load material_form %} 
 
-<a class="btn btn-info" href="{% url 'generated' %}">Generer</a>
+<div class="mx-auto" style="width: 50%; margin-top: 4%;">
+
+    <form action="/generator/" method="post">
+        {% csrf_token %}
+        {% form form=form %}{% endform %}
+        <input type="submit" value="Submit" class="btn btn-info"/>
+    </form>
+
+</div>
 {% endblock %}
