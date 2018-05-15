@@ -1,4 +1,5 @@
 import os
+import csv
 
 from django.conf import settings
 from django.http import HttpResponse
@@ -16,9 +17,12 @@ def generator(request):
 
 
 def generated(request):
-    filename = "./views.py"
-    with open(filename, 'rb') as f:
-        response = HttpResponse(f.read(), content_type='application/text')
-        response['Content-Disposition'] = 'attachment; filename=' + filename
-        response['Content-Type'] = 'application/text; charset=utf-8'
-        return response
+    u"""User clicked on generate, get form and generate Vagrantfile."""
+
+    response = HttpResponse(content_type='text')
+    response['Content-Disposition'] = 'attachment; filename="Vagrantfile"'
+
+    response.write("First row" + "\n")
+    response.write("Second row")
+
+    return response
