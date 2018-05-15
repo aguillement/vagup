@@ -10,16 +10,11 @@ class VagrantForm(forms.Form):
         widget=forms.RadioSelect)
 
     u""" Personal Details """
-    machine_name = forms.CharField(label='Machine name', default='machine1')
-    date_of_birth = forms.DateField()
-    email = forms.EmailField()
-    parent_name = forms.CharField(label='In case of a minor please provide details')
+    machine_name = forms.CharField(label='Machine name', initial='machine')
 
     layout = Layout(
         'base_box',
         Fieldset("Personal Details (Sole/First Accountholder/Minor)",
-                 Row(Span2('full_name'), Span2('full_name')),
-                 Row(Column('date_of_birth',
-                            'email',
-                            'parent_name'))),
+                 Row('machine_name'),
+        ),
     )

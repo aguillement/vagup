@@ -24,7 +24,14 @@ def generator(request):
             response.write('# vi: set ft=ruby : \n\n')
             response.write('Vagrant.configure("2") do |config| \n\n\t')
 
-            response.write('config.vm.box = "{}"'.format(data['base_box']))
+            response.write('config.vm.box = "{}"\n\n\t'.format(data['base_box']))
+
+            response.write('config.vm.provider "virtualbox" do |v| \n\t\t')
+            response.write('v.name="{}"\n\t'.format(data['machine_name']))
+
+            response.write("end \n")
+
+            response.write("end")
             return response
     else:
         form = VagrantForm()
