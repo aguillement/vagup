@@ -13,8 +13,7 @@ def generator(request):
     u"""Generate vagrantfile."""
 
     if request.method == 'POST':
-        print(request.POST)
-        """
+        data = request.POST
         response = HttpResponse(content_type='text')
         response['Content-Disposition'] = 'attachment; filename="Vagrantfile"'
 
@@ -31,7 +30,10 @@ def generator(request):
         response.write("end \n\t")
 
         # Box check update
-        response.write('config.vm.box_check_update = {}\n\t'.format(str(data['check_updates']).lower()))
+        if not data.getlist('auto_update'):
+            response.write('config.vm.box_check_update = false\n\t')
+        else:
+            response.write('config.vm.box_check_update = true\n\t')
 
         # Network
         response.write('config.vm.network "public_network", guest: {}, host:{}'.format(data['guest_port'], data['host_port']))
@@ -42,13 +44,13 @@ def generator(request):
 
 
         # Synced folder
-        response.write('config.vm.synced_folder "{}", "{}" \n\t'.format(data['folder_source'], data['folder_target']))
+        response.write('config.vm.synced_folder "{}", "{}" \n\t'.format(data['source_folder'], data['target_folder']))
 
         # Provision yum|apt
 
         # Provision python
 
         response.write("end")
-        return response"""
+        return response
 
     return render(request, 'generator/generate.html')
