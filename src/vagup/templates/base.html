@@ -12,17 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    {% include 'material/includes/material_css.html' %}
     <link rel="stylesheet" href="{% static 'css/custom_styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
-    <style>
-        .section h5 {
-            font-size: 1.2rem;
-            padding-bottom: 0.2rem;
-            border-right: 2px solid rgba(0, 0, 0, .3);
-            border-bottom: 2px solid rgba(0, 0, 0, .3);
-        }
-    </style>
 </head>
 
 <body>
@@ -44,7 +35,7 @@
         {% block content %}{% endblock %}
     </section>
 
-    <footer class="page-footer dark fixed-bottom">
+    <footer class="page-footer dark">
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
@@ -82,8 +73,6 @@
             <p>Created to have a better life.</p>
         </div>
     </footer>
-    <script src="{% static 'material/js/jquery.js' %}"></script>
-    {% include 'material/includes/material_js.html' %}
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/script.min.js' %}"></script>

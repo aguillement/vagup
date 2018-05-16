@@ -13,27 +13,42 @@ def generator(request):
     u"""Generate vagrantfile."""
 
     if request.method == 'POST':
-        form = VagrantForm(request.POST)
+        print(request.POST)
+        """
+        response = HttpResponse(content_type='text')
+        response['Content-Disposition'] = 'attachment; filename="Vagrantfile"'
 
-        if form.is_valid():
-            data = form.cleaned_data
-            response = HttpResponse(content_type='text')
-            response['Content-Disposition'] = 'attachment; filename="Vagrantfile"'
+        response.write('# -*- mode: ruby -*- \n')
+        response.write('# vi: set ft=ruby : \n\n')
+        response.write('Vagrant.configure("2") do |config| \n\n\t')
 
-            response.write('# -*- mode: ruby -*- \n')
-            response.write('# vi: set ft=ruby : \n\n')
-            response.write('Vagrant.configure("2") do |config| \n\n\t')
+        # Base box
+        response.write('config.vm.box = "{}"\n\n\t'.format(data['base_box']))
 
-            response.write('config.vm.box = "{}"\n\n\t'.format(data['base_box']))
+        # Machine name
+        response.write('config.vm.provider "virtualbox" do |v| \n\t\t')
+        response.write('v.name="{}"\n\t'.format(data['machine_name']))
+        response.write("end \n\t")
 
-            response.write('config.vm.provider "virtualbox" do |v| \n\t\t')
-            response.write('v.name="{}"\n\t'.format(data['machine_name']))
+        # Box check update
+        response.write('config.vm.box_check_update = {}\n\t'.format(str(data['check_updates']).lower()))
 
-            response.write("end \n")
+        # Network
+        response.write('config.vm.network "public_network", guest: {}, host:{}'.format(data['guest_port'], data['host_port']))
 
-            response.write("end")
-            return response
-    else:
-        form = VagrantForm()
+        if data['mac_address']:
+            response.write(', :mac => "{}"'.format(data['mac_address']))
+        response.write('\n\t')
 
-    return render(request, 'generator/generate.html', {'form': form})
+
+        # Synced folder
+        response.write('config.vm.synced_folder "{}", "{}" \n\t'.format(data['folder_source'], data['folder_target']))
+
+        # Provision yum|apt
+
+        # Provision python
+
+        response.write("end")
+        return response"""
+
+    return render(request, 'generator/generate.html')
