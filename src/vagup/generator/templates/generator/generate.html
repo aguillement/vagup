@@ -13,12 +13,20 @@
                         <b>Base box</b>
                     </p>
                     <div class="custom-control custom-radio">
-                        <input type="radio" id="bento/centos7" name="base_box" class="custom-control-input" value="bento/centos7" checked="">
+                        <input type="radio" id="bento/centos7" name="base_box" class="custom-control-input" value="bento/centos7" checked>
                         <label class="custom-control-label" for="bento/centos7">bento/centos7</label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input type="radio" id="bento/debian-8.2" name="base_box" class="custom-control-input" value="bento/debian-8.2">
                         <label class="custom-control-label" for="bento/debian-8.2">bento/debian-8.2</label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="form-group">
+                        <p class="text-muted" >
+                            <b>Memory</b>
+                        </p>
+                        <input type="text" name="memory" class="form-control" placeholder="Memory">
                     </div>
                 </div>
             </div>
@@ -30,7 +38,7 @@
                         <p class="text-muted" >
                             <b>Machine name</b>
                         </p>
-                        <input type="text" name="machine_name" class="form-control" placeholder="Machine name" required="True">
+                        <input type="text" name="machine_name" class="form-control" placeholder="Machine name" required>
                     </div>
                 </div>
 
@@ -42,7 +50,7 @@
                         <input type="checkbox" id="auto_update" name="auto_update" class="custom-control-input" value="True">
                         <label class="custom-control-label ml-2" for="auto_update">Auto update box</label>
                     </div>
-                 </div>
+                </div>
             </div>
 
             <!-- Network -->

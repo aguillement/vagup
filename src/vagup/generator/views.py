@@ -26,6 +26,7 @@ def generator(request):
 
         # Machine name
         response.write('config.vm.provider "virtualbox" do |v| \n\t\t')
+        response.write('v.memory = {}\n\t\t'.format(data['memory'])) if data['memory'] else None
         response.write('v.name="{}"\n\t'.format(data['machine_name']))
         response.write("end \n\t")
 
