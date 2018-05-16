@@ -28,7 +28,7 @@ def generator(request):
         response.write('config.vm.provider "virtualbox" do |v| \n\t\t')
         response.write('v.memory = {}\n\t\t'.format(data['memory'])) if data['memory'] else None
         response.write('v.name="{}"\n\t'.format(data['machine_name']))
-        response.write("end \n\t")
+        response.write("end \n\n\t")
 
         # Box check update
         if not data.getlist('auto_update'):
@@ -43,9 +43,8 @@ def generator(request):
             response.write(', :mac => "{}"'.format(data['mac_address']))
         response.write('\n\t')
 
-
         # Synced folder
-        response.write('config.vm.synced_folder "{}", "{}" \n\t'.format(data['source_folder'], data['target_folder']))
+        response.write('config.vm.synced_folder "{}", "{}" \n'.format(data['source_folder'], data['target_folder']))
 
         # Provision yum|apt
 
