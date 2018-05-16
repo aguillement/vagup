@@ -2,8 +2,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
 
-from .forms import VagrantForm
-
 
 def index(request):
     return render_to_response('index.html')
@@ -44,9 +42,10 @@ def generator(request):
         response.write('\n\t')
 
         # Synced folder
-        response.write('config.vm.synced_folder "{}", "{}" \n'.format(data['source_folder'], data['target_folder']))
+        response.write('config.vm.synced_folder "{}", "{}" \n\n\t'.format(data['source_folder'], data['target_folder']))
 
         # Provision yum|apt
+        provision(response, data)
 
         # Provision python
 
@@ -54,3 +53,27 @@ def generator(request):
         return response
 
     return render(request, 'generator/generate.html')
+
+
+def provision(response, data):
+    u"""YUM / APT provision"""
+
+    response.write('config.vm.provision "shell", inline: <<-SHELL\n\t\t')
+    response.write('sudo su\n\t\t')
+
+    if data['base_box'] == 'bento/centos7':
+        base_command = "yum install -y"
+
+    else:
+        base_command = "apt-get install --assume-yes"
+        response.write('apt-get update\n\t\t')
+
+    if data['packages']:
+        packages = data['packages'].split('\\')
+        response.write('{} '.format(base_command))
+        for each in packages:
+            response.write('{} '.format(each))
+        response.write('\n\t')
+    
+    return response
+
