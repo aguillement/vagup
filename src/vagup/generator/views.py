@@ -74,6 +74,10 @@ def provision(response, data):
         for each in packages:
             response.write('{} '.format(each))
         response.write('\n\t')
-    
-    return response
 
+    if data.getlist('pgsql10'):
+        response.write('yum install -y postgresql10 postgresql10-server\n\n\t\t')
+        response.write('su - postgres -c "createuser --createdb --no-superuser --createrole --no-password {}\n\t\t'.format(data['username']))
+        response.write('su - {} -c "createdb -O {} {}" \n\t'.format(data['username'], data['username'], data['database_name']))
+
+    return response
