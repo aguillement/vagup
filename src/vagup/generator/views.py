@@ -45,9 +45,10 @@ def generator(request):
         response.write('config.vm.synced_folder "{}", "{}" \n\n\t'.format(data['source_folder'], data['target_folder']))
 
         # Provision yum|apt
-        provision(response, data)
+        yum_provision(response, data)
 
         # Provision python
+        python_provision(response, data)
 
         response.write("end")
         return response
@@ -55,7 +56,7 @@ def generator(request):
     return render(request, 'generator/generate.html')
 
 
-def provision(response, data):
+def yum_provision(response, data):
     u"""YUM / APT provision"""
 
     response.write('config.vm.provision "shell", inline: <<-SHELL\n\t\t')
@@ -79,5 +80,17 @@ def provision(response, data):
         response.write('yum install -y postgresql10 postgresql10-server\n\n\t\t')
         response.write('su - postgres -c "createuser --createdb --no-superuser --createrole --no-password {}\n\t\t'.format(data['username']))
         response.write('su - {} -c "createdb -O {} {}" \n\t'.format(data['username'], data['username'], data['database_name']))
+
+    response.write("end\n\n\t")
+
+    return response
+
+
+def python_provision(response, data):
+    u"""Python / pip provision"""
+
+    response.write('config.vm.provision "shell", inline: <<-SHELL\n\t\t')
+
+    response.write("end\n\n\t")
 
     return response
